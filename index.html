@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="The Catalyst, ang opisyal na publikasyon ng Polytechnic University of the Philippines.">
 <title>The Catalyst | PUP</title>
-<link rel="icon" href="assets/LOGO.png">
+<link rel="icon" href="assets/logo.jpg">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap" rel="stylesheet">
 <style>
 /* Palette: replace these values when the official Catalyst palette is ready */
@@ -98,7 +98,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 <header class="hero">
   <canvas id="embers" aria-hidden="true"></canvas>
   <div class="wrap hero-in">
-    <img class="logo" src="assets/LOGO.png" alt="The Catalyst logo" onerror="this.remove()">
+    <img class="logo" src="assets/logo.jpg" alt="The Catalyst logo" onerror="this.remove()">
     <div>
       <h1>The Catalyst</h1>
       <p>Ang opisyal na publikasyon ng Polytechnic University of the Philippines.</p>
@@ -135,7 +135,7 @@ const $=id=>document.getElementById(id);
 const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const fmt=d=>d?new Date(d).toLocaleDateString("en-PH",{month:"short",day:"numeric",year:"numeric"}):"";
 const H={apikey:KEY,Authorization:"Bearer "+KEY};
-const DESKS=["Opinion & Column","Feature & Community","News & Sports","Literary & Culture","Layout & Design"];
+const DESKS=["News","Sports","Feature","Community","Opinion","Column","Literary","Culture","Layout & Design"];
 let ARTICLES=[],cur=-1,Q="";
 const bg=a=>a.cover?` style="background-image:url('${esc(a.cover)}')"`:"";
 const art=a=>`<a class="card" href="#story-${a.id}"><div class="ph"${bg(a)}></div><span class="tagl" style="color:var(--red)">${esc(a.sec)}</span><h3>${esc(a.title)}</h3><p>${esc(a.dek)}</p><div class="meta">${esc(a.by)}, ${a.date}</div></a>`;
