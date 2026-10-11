@@ -135,7 +135,7 @@ const $=id=>document.getElementById(id);
 const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const fmt=d=>d?new Date(d).toLocaleDateString("en-PH",{month:"short",day:"numeric",year:"numeric"}):"";
 const H={apikey:KEY,Authorization:"Bearer "+KEY};
-const DESKS=["News","Sports","Feature","Community","Opinion","Column","Literary","Culture","Layout & Design"];
+const DESKS=["News","Sports","Feature","Community","Opinion","Column","Literary","Culture"];
 let ARTICLES=[],cur=-1,Q="";
 const bg=a=>a.cover?` style="background-image:url('${esc(a.cover)}')"`:"";
 const art=a=>`<a class="card" href="#story-${a.id}"><div class="ph"${bg(a)}></div><span class="tagl" style="color:var(--red)">${esc(a.sec)}</span><h3>${esc(a.title)}</h3><p>${esc(a.dek)}</p><div class="meta">${esc(a.by)}, ${a.date}</div></a>`;
