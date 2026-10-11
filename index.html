@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="The Catalyst, ang opisyal na publikasyon ng Polytechnic University of the Philippines.">
+<title>The Catalyst | PUP</title>
+<link rel="icon" href="assets/LOGO.png">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap" rel="stylesheet">
+<style>
+/* Palette: replace these values when the official Catalyst palette is ready */
+:root{--red:#9b0d16;--red-d:#5a070c;--black:#0e0405;--ember:#ff8a2a;--bg:#faf7f7;--card:#fff;--ink:#1b1214;--mute:#6b5d60;--line:#e5dadb;
+--head:"Archivo","Arial Narrow",Arial,sans-serif;--body:"Source Serif 4",Georgia,serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#120a0b;--card:#1d1315;--ink:#f3eaea;--mute:#b5a4a7;--line:#382a2d;--red:#c4202b}}
+:root[data-theme="dark"]{--bg:#120a0b;--card:#1d1315;--ink:#f3eaea;--mute:#b5a4a7;--line:#382a2d;--red:#c4202b}
+html{scroll-padding-top:calc(60px + env(safe-area-inset-top,0px))}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.65 var(--body)}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--ember);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--head);line-height:1.1;margin:0}
+.meta{font:500 13px var(--head);color:var(--mute)}
+.hide{display:none!important}
+
+/* hero with rising embers (alipato) */
+.hero{position:relative;overflow:hidden;color:#fff;background:radial-gradient(120% 100% at 15% 0%,#8a0b13 0%,#3a060a 50%,var(--black) 100%)}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 40%,#ffffff08 40% 52%,transparent 52%),linear-gradient(115deg,transparent 62%,#ffffff06 62% 70%,transparent 70%)}
+#embers{position:absolute;inset:0;width:100%;height:100%}
+.hero-in{position:relative;display:flex;align-items:center;gap:28px;padding-top:44px;padding-bottom:44px}
+.logo{width:clamp(96px,16vw,168px);aspect-ratio:1;object-fit:cover;border-radius:6px;border:2px solid #ffffff55;box-shadow:0 10px 40px #0008}
+.hero h1{font-size:clamp(52px,10vw,112px);font-stretch:62%;font-weight:900;letter-spacing:-.01em;line-height:.88}
+.hero p{margin:14px 0 0;max-width:520px;font-size:clamp(17px,2.2vw,21px);color:#f3dede}
+.hero-in>div{animation:rise .9s ease-out both}.logo{animation:rise .7s ease-out both}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}}
+@media (prefers-reduced-motion:reduce){.hero-in>div,.logo{animation:none}}
+
+/* nav */
+nav{background:var(--black);position:sticky;top:env(safe-area-inset-top,0px);z-index:5;border-bottom:3px solid var(--ember)}
+nav .wrap{display:flex;align-items:center;gap:6px}
+.links{display:flex;overflow-x:auto;flex:1;scrollbar-width:none}
+.links a{font:700 15px var(--head);color:#eadada;padding:15px 13px;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-3px}
+.links a:hover{color:#fff}.links a.on{color:var(--ember);border-color:var(--ember)}
+#q{width:170px;padding:8px 12px;border-radius:20px;border:1px solid #ffffff33;background:#ffffff14;color:#fff;font:15px var(--head)}
+#q::placeholder{color:#cdb9bb}
+
+/* lead */
+.lead{display:grid;grid-template-columns:1.8fr 1fr;gap:30px;padding:32px 0 8px}
+.leadcard{position:relative;display:flex;align-items:flex-end;min-height:440px;border-radius:6px;overflow:hidden;color:#fff;background:linear-gradient(135deg,var(--red-d),var(--red) 60%,var(--ember)) center/cover}
+.leadcard .shade{padding:90px 26px 26px;width:100%;background:linear-gradient(to top,#000d,#0000)}
+.leadcard h2{font-size:clamp(30px,4.6vw,52px);font-weight:800;margin:8px 0}
+.leadcard p{margin:0 0 8px;font-size:18px;color:#f1e4e4}
+.leadcard .meta{color:#e8d6d6}
+.tagl{font:800 13px var(--head);color:var(--ember)}
+.side h2{font-size:21px;margin-bottom:4px}
+.item{display:block;padding:15px 0 15px 16px;border-left:3px solid var(--line);margin-bottom:2px;transition:border-color .2s}
+.item:hover{border-color:var(--red)}
+.item .tagl{color:var(--red)}
+.item h3{font-size:19px;font-weight:700;margin:3px 0 4px}
+
+/* desks */
+.deskh{display:flex;justify-content:space-between;align-items:baseline;margin:46px 0 18px;padding-bottom:8px;border-bottom:3px solid var(--red)}
+.deskh h2{font-size:27px;font-weight:800}
+.deskh a{font:700 14px var(--head);color:var(--red);cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.card .ph{overflow:hidden}
+.ph{aspect-ratio:16/10;border-radius:4px;background:linear-gradient(135deg,var(--red-d),var(--red) 60%,var(--ember)) center/cover;transition:transform .35s}
+.card:hover .ph{transform:scale(1.04)}
+.card h3{font-size:21px;font-weight:700;margin:12px 0 6px}
+.card:hover h3{color:var(--red)}
+.card p{margin:0 0 6px;color:var(--mute);font-size:16px}
+.empty{padding:30px;border:1px dashed var(--line);border-radius:6px;color:var(--mute);font-family:var(--head)}
+.ltitle{font-size:34px;font-weight:800;margin:36px 0 22px}
+
+/* story */
+.story{max-width:720px;margin:0 auto;padding:36px 0 20px}
+.story h1{font-size:clamp(32px,5vw,50px);font-weight:800;margin:10px 0}
+.story .ph{margin:22px 0}.story p{margin:0 0 1.1em}
+.back{font:700 15px var(--head);color:var(--red);cursor:pointer;background:none;border:0;padding:0}
+
+/* about + footer */
+.about{background:var(--black);color:#f0e2e2;margin-top:56px;padding:52px 0}
+.about .wrap{display:grid;grid-template-columns:1.3fr 1fr;gap:44px}
+.about h2{font-size:30px;font-weight:800;margin-bottom:14px;color:#fff}
+.about p{margin:0;font-size:19px}
+.contact{font:16px/1.7 var(--head)}.contact b{display:block;color:var(--ember);margin-top:12px}
+.contact a:hover{text-decoration:underline}
+footer{background:#070203;color:#bba9ab;padding:20px 0;font:14px var(--head)}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media(max-width:860px){.lead,.about .wrap{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.leadcard{min-height:340px}#q{width:120px}}
+@media(max-width:560px){.grid{grid-template-columns:1fr}body{font-size:17px}.hero-in{gap:16px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <canvas id="embers" aria-hidden="true"></canvas>
+  <div class="wrap hero-in">
+    <img class="logo" src="assets/LOGO.png" alt="The Catalyst logo" onerror="this.remove()">
+    <div>
+      <h1>The Catalyst</h1>
+      <p>Ang opisyal na publikasyon ng Polytechnic University of the Philippines.</p>
+    </div>
+  </div>
+</header>
+
+<nav aria-label="Sections"><div class="wrap">
+  <div class="links" id="nav"></div>
+  <input id="q" type="search" placeholder="Search stories" aria-label="Search stories">
+</div></nav>
+
+<main id="main" class="wrap">
+  <div id="home">
+    <section class="lead" aria-label="Top story"><div id="leadArt"></div><aside class="side"><h2>Latest</h2><div id="latest"></div></aside></section>
+    <div id="desks"></div>
+  </div>
+  <div id="list" class="hide"><h1 class="ltitle" id="lt"></h1><div class="grid" id="lg"></div></div>
+  <div id="storyView" class="hide"></div>
+</main>
+
+<section class="about" id="about"><div class="wrap">
+  <div><h2>Tungkol sa The Catalyst</h2><p>The Catalyst, ang opisyal na publikasyon ng Polytechnic University of the Philippines.</p></div>
+  <div class="contact">
+    <b>Email</b><a href="mailto:pupthecatalyst@gmail.com">pupthecatalyst@gmail.com</a>
+    <b>Opisina</b>Room 206 Charlie del Rosario Bldg.,<br>Manila, Philippines, 1016
+  </div>
+</div></section>
+<footer><div class="wrap"><span>&copy; 2026 The Catalyst, PUP</span><span>pupthecatalyst@gmail.com</span></div></footer>
+
+<script>
+const SB="https://wgrhfgtqxahwrflmytqb.supabase.co",KEY="sb_publishable_2Nrrt6t-JQKqKzvvBF0m_g_n3C9JrfS";
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt=d=>d?new Date(d).toLocaleDateString("en-PH",{month:"short",day:"numeric",year:"numeric"}):"";
+const H={apikey:KEY,Authorization:"Bearer "+KEY};
+const DESKS=["Opinion & Column","Feature & Community","News & Sports","Literary & Culture","Layout & Design"];
+let ARTICLES=[],cur=-1,Q="";
+const bg=a=>a.cover?` style="background-image:url('${esc(a.cover)}')"`:"";
+const art=a=>`<a class="card" href="#story-${a.id}"><div class="ph"${bg(a)}></div><span class="tagl" style="color:var(--red)">${esc(a.sec)}</span><h3>${esc(a.title)}</h3><p>${esc(a.dek)}</p><div class="meta">${esc(a.by)}, ${a.date}</div></a>`;
+function render(){
+  const list=cur>=0||Q;
+  $("home").classList.toggle("hide",list);$("list").classList.toggle("hide",!list);
+  document.querySelectorAll("#nav a[data-i]").forEach(a=>a.classList.toggle("on",+a.dataset.i===cur&&!Q));
+  if(list){
+    const l=ARTICLES.filter(a=>(cur<0||a.sec===DESKS[cur])&&(!Q||(a.title+a.dek).toLowerCase().includes(Q)));
+    $("lt").textContent=Q?"Search results":DESKS[cur];
+    $("lg").innerHTML=l.length?l.map(art).join(""):`<div class="empty">No stories found. Try another section or search term.</div>`;return}
+  const L=ARTICLES[0];
+  if(!L){$("leadArt").innerHTML=`<div class="empty">No published stories yet. Check back soon.</div>`;$("latest").innerHTML="";$("desks").innerHTML="";return}
+  $("leadArt").innerHTML=`<a class="leadcard" href="#story-${L.id}"${bg(L)}><div class="shade"><span class="tagl">${esc(L.sec)}</span><h2>${esc(L.title)}</h2><p>${esc(L.dek)}</p><div class="meta">${esc(L.by)}, ${L.date}</div></div></a>`;
+  $("latest").innerHTML=ARTICLES.slice(1,6).map(a=>`<a class="item" href="#story-${a.id}"><span class="tagl">${esc(a.sec)}</span><h3>${esc(a.title)}</h3><div class="meta">${a.date}</div></a>`).join("");
+  $("desks").innerHTML=DESKS.map((d,i)=>{const l=ARTICLES.filter(a=>a.sec===d).slice(0,3);
+    return l.length?`<div class="deskh"><h2>${esc(d)}</h2><a href="#" onclick="go(${i});return false">View all</a></div><div class="grid">${l.map(art).join("")}</div>`:""}).join("");
+}
+function go(i){cur=i;Q="";$("q").value="";if(location.hash.startsWith("#story"))location.hash="";render();$("main").scrollIntoView()}
+$("q").oninput=e=>{Q=e.target.value.trim().toLowerCase();if(location.hash.startsWith("#story"))location.hash="";render()};
+async function route(){
+  const m=location.hash.match(/^#story-([0-9a-f-]{36})$/),on=!!m;
+  $("storyView").classList.toggle("hide",!on);
+  if(!on){const v=cur>=0||Q;$("home").classList.toggle("hide",v);$("list").classList.toggle("hide",!v);document.title="The Catalyst | PUP";if(location.hash==="#about")$("about").scrollIntoView();return}
+  $("home").classList.add("hide");$("list").classList.add("hide");
+  $("main").scrollIntoView();$("storyView").innerHTML=`<div class="story"><p>Loading story...</p></div>`;
+  try{
+    const r=await fetch(`${SB}/rest/v1/stories?select=*&id=eq.${m[1]}&status=eq.published`,{headers:H});const [s]=await r.json();
+    if(!s)throw 0;
+    $("storyView").innerHTML=`<article class="story"><button class="back" onclick="location.hash=''">Back to all stories</button><div style="margin-top:16px"><span class="tagl" style="color:var(--red)">${esc(s.section)}</span></div><h1>${esc(s.title)}</h1><div class="meta">${esc(s.author||"The Catalyst")}, ${fmt(s.published_at)}</div>${s.cover_url?`<div class="ph"${bg({cover:s.cover_url})}></div>`:""}${esc(s.body).split(/\n+/).map(t=>`<p>${t}</p>`).join("")}</article>`;
+    document.title=s.title+" | The Catalyst";
+  }catch(e){$("storyView").innerHTML=`<div class="story"><div class="empty">This story could not be found. <a href="#" onclick="location.hash='';return false" style="text-decoration:underline">Back to all stories</a></div></div>`}
+}
+async function load(){
+  try{
+    const r=await fetch(`${SB}/rest/v1/stories?select=id,title,section,summary,author,cover_url,published_at&status=eq.published&order=published_at.desc`,{headers:H});
+    if(!r.ok)throw 0;
+    ARTICLES=(await r.json()).map(x=>({id:x.id,sec:x.section,title:x.title,dek:x.summary||"",by:x.author||"The Catalyst",date:fmt(x.published_at),cover:x.cover_url}));
+  }catch(e){$("leadArt").innerHTML=`<div class="empty">Could not load stories. Check your connection and refresh the page.</div>`;return}
+  render();route();
+}
+$("nav").innerHTML=`<a href="#" data-i="-1" class="on" onclick="go(-1);return false">Home</a>`+DESKS.map((d,i)=>`<a href="#" data-i="${i}" onclick="go(${i});return false">${esc(d)}</a>`).join("")+`<a href="#about">About</a>`;
+window.addEventListener("hashchange",route);
+load();
+
+// Alipato: rising embers in the hero
+(()=>{const c=$("embers"),x=c.getContext("2d");if(matchMedia("(prefers-reduced-motion:reduce)").matches)return;
+let w,h;const R=()=>{w=c.width=c.offsetWidth;h=c.height=c.offsetHeight};R();addEventListener("resize",R);
+const mk=i=>({x:Math.random()*w,y:i?Math.random()*h:h+10,r:Math.random()*2.2+.6,v:Math.random()*.8+.3,d:Math.random()*6.3,a:Math.random()*.6+.4});
+const P=Array.from({length:70},()=>mk(1));x.shadowBlur=10;x.shadowColor="#ff7a1a";
+(function f(){x.clearRect(0,0,w,h);for(const p of P){p.y-=p.v;p.d+=.02;p.x+=Math.sin(p.d)*.5;p.a-=.0012;
+if(p.y<-10||p.a<=0)Object.assign(p,mk(0));x.beginPath();x.fillStyle=`rgba(255,${120+p.r*30|0},40,${p.a})`;x.arc(p.x,p.y,p.r,0,6.3);x.fill()}requestAnimationFrame(f)})()})();
+</script>
+</body>
+</html>

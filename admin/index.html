@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>The Catalyst Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&display=swap" rel="stylesheet">
+<style>
+:root{--maroon:#7a0c12;--maroon-d:#4d070b;--gold:#f2b705;--bg:#f6f2f2;--card:#fff;--ink:#1d1416;--mute:#6d5f62;--line:#e6dcdd;--ok:#1f7a3d;--warn:#9a6a00;
+--f:"Archivo",Arial,sans-serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#150d0e;--card:#1f1416;--ink:#f3eaea;--mute:#b3a2a5;--line:#3a2a2d;--ok:#5fcf86;--warn:#f2b705}}
+:root[data-theme="dark"]{--bg:#150d0e;--card:#1f1416;--ink:#f3eaea;--mute:#b3a2a5;--line:#3a2a2d;--ok:#5fcf86;--warn:#f2b705}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--f)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+button,input,select,textarea{font:inherit;color:inherit}
+.hide{display:none!important}
+.btn{border:0;border-radius:6px;padding:10px 16px;font-weight:700;cursor:pointer;background:var(--maroon);color:#fff}
+.btn.alt{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.gold{background:var(--gold);color:#2a1a00}
+.btn.sm{padding:5px 10px;font-size:14px}
+.btn.del{background:transparent;color:#c0262d;border:1px solid var(--line)}
+input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:6px;background:var(--card)}
+label{display:block;font-weight:600;font-size:14px;margin:14px 0 5px}
+
+/* login */
+#login{min-height:100vh;display:grid;place-items:center;background:var(--maroon);padding:20px}
+.box{background:var(--card);width:100%;max-width:380px;padding:32px;border-radius:8px;border-top:6px solid var(--gold)}
+.box h1{margin:0;font:900 40px/1 var(--f);font-stretch:62%;color:var(--maroon)}
+.box p{color:var(--mute);margin:6px 0 10px}
+.err{color:#c0262d;font-size:14px;min-height:20px;margin:8px 0}
+
+/* shell */
+.bar{background:var(--maroon);color:#fff;border-bottom:4px solid var(--gold);position:sticky;top:env(safe-area-inset-top,0px);z-index:4}
+.bar .in{max-width:1100px;margin:0 auto;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.bar b{font:900 26px var(--f);font-stretch:62%}
+.bar span{font-size:14px;opacity:.85}
+main{max-width:1100px;margin:0 auto;padding:24px 20px 60px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px}
+.stat{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--maroon);padding:14px 16px;border-radius:6px}
+.stat b{display:block;font-size:30px;line-height:1.1}.stat span{color:var(--mute);font-size:14px}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.tools input{flex:1;min-width:180px}.tools select{width:auto}
+.tbl{background:var(--card);border:1px solid var(--line);border-radius:6px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);font-size:15px}
+th{font-size:13px;color:var(--mute);background:var(--bg)}
+td.t{font-weight:600;max-width:340px}
+.pill{font-size:12px;font-weight:700;padding:3px 9px;border-radius:20px;border:1px solid currentColor}
+.published{color:var(--ok)}.draft{color:var(--mute)}.review{color:var(--warn)}
+td.act{white-space:nowrap;display:flex;gap:6px}
+
+/* editor */
+#editor{position:fixed;inset:0;background:#000a;display:flex;justify-content:flex-end;z-index:9}
+#editor form{background:var(--card);width:min(560px,100%);height:100%;overflow-y:auto;padding:24px;padding-top:calc(24px + env(safe-area-inset-top,0px))}
+#editor h2{margin:0 0 4px}
+#editor textarea{min-height:200px;resize:vertical}
+.row{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+.note{font-size:13px;color:var(--mute);margin-top:30px}
+@media(max-width:700px){.stats{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<section id="login">
+  <form class="box" id="lf">
+    <img src="../assets/LOGO.png" alt="" width="72" height="72" style="border-radius:6px;margin-bottom:10px" onerror="this.remove()"><h1>The Catalyst</h1>
+    <p>Staff dashboard. Log in with your staff email.</p>
+    <label for="em">Email</label>
+    <input id="em" type="email" autocomplete="username" required>
+    <label for="pw">Password</label>
+    <input id="pw" type="password" autocomplete="current-password" required>
+    <div class="err" id="err" role="alert"></div>
+    <button class="btn" style="width:100%">Log in</button>
+  </form>
+</section>
+
+<div id="app" class="hide">
+  <div class="bar"><div class="in"><div><b>The Catalyst</b> <span>Admin</span></div><button class="btn gold sm" id="out">Log out</button></div></div>
+  <main>
+    <div class="stats" id="stats"></div>
+    <div class="tools">
+      <input id="s" type="search" placeholder="Search stories" aria-label="Search stories">
+      <select id="f" aria-label="Filter by status"><option>All</option><option>Published</option><option>Review</option><option>Draft</option></select>
+      <button class="btn" id="new">New story</button>
+    </div>
+    <div class="tbl"><table><thead><tr><th>Title</th><th>Section</th><th>Status</th><th>Updated</th><th></th></tr></thead><tbody id="rows"></tbody></table></div>
+  </main>
+</div>
+
+<div id="editor" class="hide">
+  <form id="ef">
+    <h2 id="eh">New story</h2>
+    <label for="et">Title</label><input id="et" required>
+    <label for="es">Section</label>
+    <select id="esec"><option>Opinion &amp; Column</option><option>Feature &amp; Community</option><option>News &amp; Sports</option><option>Literary &amp; Culture</option><option>Layout &amp; Design</option></select>
+    <label for="ed">Summary</label><input id="ed">
+    <label for="ea">Author</label><input id="ea">
+    <label for="eb">Story</label><textarea id="eb"></textarea>
+    <label for="ec">Cover image (leave empty to keep the current one)</label><input id="ec" type="file" accept="image/*">
+    <div class="row">
+      <button class="btn gold" type="button" data-st="published">Publish</button>
+      <button class="btn" type="button" data-st="review">Send for review</button>
+      <button class="btn alt" type="button" data-st="draft">Save draft</button>
+      <button class="btn alt" type="button" id="cx">Cancel</button>
+    </div>
+    <p class="note">Cover image is optional. Published stories appear on the public site right away.</p>
+  </form>
+</div>
+
+<script>
+const SB="https://wgrhfgtqxahwrflmytqb.supabase.co",KEY="sb_publishable_2Nrrt6t-JQKqKzvvBF0m_g_n3C9JrfS";
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt=d=>d?new Date(d).toLocaleDateString("en-PH",{month:"short",day:"numeric",year:"numeric"}):"";
+const ss=(k,v)=>{try{return v===undefined?sessionStorage.getItem(k):v===null?sessionStorage.removeItem(k):sessionStorage.setItem(k,v)}catch(e){return null}};
+let tok=ss("cat_tok"),S=[],editing=null;
+const api=async(path,o={})=>{
+  const r=await fetch(SB+path,{...o,headers:{apikey:KEY,Authorization:"Bearer "+tok,"Content-Type":"application/json",...o.headers}});
+  if(r.status===401){logout("Session expired. Log in again.");throw new Error("expired")}
+  const t=await r.text();if(!r.ok)throw new Error(t);return t?JSON.parse(t):null};
+function show(on){$("login").classList.toggle("hide",on);$("app").classList.toggle("hide",!on);if(on)loadStories()}
+function logout(m){ss("cat_tok",null);tok=null;$("err").textContent=m||"";show(false)}
+$("lf").onsubmit=async e=>{e.preventDefault();$("err").textContent="";
+  try{const r=await fetch(SB+"/auth/v1/token?grant_type=password",{method:"POST",headers:{apikey:KEY,"Content-Type":"application/json"},body:JSON.stringify({email:$("em").value.trim(),password:$("pw").value})});
+    const j=await r.json();if(!r.ok)throw 0;tok=j.access_token;ss("cat_tok",tok);$("pw").value="";show(true)}
+  catch(x){$("err").textContent="Wrong email or password."}};
+$("out").onclick=()=>logout();
+async function loadStories(){
+  try{S=await api("/rest/v1/stories?select=*&order=updated_at.desc");draw()}
+  catch(e){if(e.message!=="expired")$("rows").innerHTML=`<tr><td colspan="5">Could not load stories. Refresh the page and try again.</td></tr>`}}
+function draw(){
+  const c=k=>S.filter(x=>x.status===k).length;
+  $("stats").innerHTML=[["Total",S.length],["Published",c("published")],["Under review",c("review")],["Drafts",c("draft")]].map(a=>`<div class="stat"><b>${a[1]}</b><span>${a[0]}</span></div>`).join("");
+  const q=$("s").value.toLowerCase(),f=$("f").value.toLowerCase();
+  const l=S.filter(x=>(f==="all"||x.status===f)&&x.title.toLowerCase().includes(q));
+  $("rows").innerHTML=l.length?l.map(x=>`<tr><td class="t">${esc(x.title)}</td><td>${esc(x.section)}</td><td><span class="pill ${x.status}">${x.status==="review"?"Under review":x.status[0].toUpperCase()+x.status.slice(1)}</span></td><td>${fmt(x.updated_at)}</td><td class="act"><button class="btn alt sm" onclick="edit('${x.id}')">Edit</button><button class="btn del sm" onclick="del('${x.id}')">Delete</button></td></tr>`).join(""):`<tr><td colspan="5">No stories found. Select New story to write one.</td></tr>`;
+}
+$("s").oninput=draw;$("f").onchange=draw;
+function open_(x){editing=x?x.id:null;$("eh").textContent=x?"Edit story":"New story";$("et").value=x?x.title:"";$("esec").value=x?x.section:"News";$("ed").value=x&&x.summary||"";$("ea").value=x&&x.author||"";$("eb").value=x&&x.body||"";$("ec").value="";$("editor").classList.remove("hide")}
+function edit(id){open_(S.find(x=>x.id===id))}
+async function del(id){if(!confirm("Delete this story? This cannot be undone."))return;
+  try{await api("/rest/v1/stories?id=eq."+id,{method:"DELETE"});await loadStories()}catch(e){alert("Could not delete. Try again.")}}
+$("new").onclick=()=>open_();
+$("cx").onclick=()=>$("editor").classList.add("hide");
+document.querySelectorAll("[data-st]").forEach(b=>b.onclick=async()=>{
+  if(!$("et").value.trim()){$("et").focus();return}
+  b.disabled=true;
+  try{
+    const old=editing&&S.find(x=>x.id===editing);let url=old?old.cover_url:null;
+    const f=$("ec").files[0];
+    if(f){const n=crypto.randomUUID()+"."+(f.name.split(".").pop()||"jpg").toLowerCase();
+      await api("/storage/v1/object/covers/"+n,{method:"POST",body:f,headers:{"Content-Type":f.type}});url=SB+"/storage/v1/object/public/covers/"+n}
+    const st=b.dataset.st;
+    const o={title:$("et").value.trim(),section:$("esec").value,summary:$("ed").value,author:$("ea").value,body:$("eb").value,cover_url:url,status:st};
+    if(st==="published"&&!(old&&old.published_at))o.published_at=new Date().toISOString();
+    await api(editing?"/rest/v1/stories?id=eq."+editing:"/rest/v1/stories",{method:editing?"PATCH":"POST",body:JSON.stringify(o),headers:{Prefer:"return=minimal"}});
+    $("editor").classList.add("hide");await loadStories();
+  }catch(e){if(e.message!=="expired")alert("Could not save the story. Check your connection and try again.")}
+  b.disabled=false});
+show(!!tok);
+</script>
+</body>
+</html>
